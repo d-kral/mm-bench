@@ -26,8 +26,8 @@ public class Schema {
     public static final BuilderObjex
         person = builder.objex("person"),
         personId = builder.objex("id"),
-        personFirstName = builder.objex("first name"),
-        personLastName = builder.objex("last name"),
+        personFirstName = builder.objex("firstName"),
+        personLastName = builder.objex("lastName"),
         personGender = builder.objex("gender"),
         personBirthday = builder.objex("birthday"),
         personEmail = builder.objex("email"),
@@ -35,7 +35,7 @@ public class Schema {
 
         post = builder.objex("post"),
         postId = builder.objex("id"),
-        postCreationDate = builder.objex("creation date"),
+        postCreationDate = builder.objex("creationDate"),
         postLocation = builder.objex("location"),
         postContent = builder.objex("content"),
         postLength = builder.objex("length"),
@@ -71,7 +71,7 @@ public class Schema {
     //endregion
 
     public static final BuilderMorphism
-            HasCreated = builder.tags(Tag.role).morphism(person, post),
+            hasCreated = builder.tags(Tag.role).morphism(person, post),
             hasInterest = builder.tags(Tag.role).morphism(person, tag),
-            HasTag = builder.tags(Tag.role).morphism(post, tag);
+            hasTag = builder.tags(Tag.role).morphism(post, tag);
 }

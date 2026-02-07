@@ -1,6 +1,7 @@
 package cz.cuni.mff.mm_benchcat;
 
 import cz.matfyz.core.datasource.Datasource;
+import cz.matfyz.core.schema.SchemaCategory;
 import cz.matfyz.core.utils.Config;
 import cz.matfyz.wrapperneo4j.Neo4jControlWrapper;
 import cz.matfyz.wrapperneo4j.Neo4jProvider;
@@ -31,13 +32,13 @@ public class Neo4j {
         return provider;
     }
 
-    public DatasourceWrapper<Neo4jControlWrapper> createWrapper(String identifier) {
-        return createWrapper(identifier, null);
+    public DatasourceWrapper<Neo4jControlWrapper> createWrapper(String identifier, SchemaCategory schema) {
+        return createWrapper(identifier, schema, null);
     }
 
-    public DatasourceWrapper<Neo4jControlWrapper> createWrapper(String identifier, @Nullable String database) {
+    public DatasourceWrapper<Neo4jControlWrapper> createWrapper(String identifier, SchemaCategory schema, @Nullable String database) {
         if (database == null) database = "neo4j";
         final var wrapper = new Neo4jControlWrapper(getProvider(database), identifier);
-        return new DatasourceWrapper<>(wrapper, Datasource.DatasourceType.neo4j, identifier);
+        return new DatasourceWrapper<>(Datasource.DatasourceType.neo4j, identifier, wrapper, schema);
     }
 }
