@@ -15,12 +15,12 @@ public class Neo4j {
     private final Config config;
     private Neo4jProvider provider;
 
-    private Neo4jProvider getProvider(String database) {
+    private Neo4jProvider getProvider(@Nullable String database) {
         if (provider == null) {
             provider = new Neo4jProvider(new Neo4jProvider.Neo4jSettings(
                     config.get("host"),
                     config.get("port"),
-                    database,
+                    database != null ? database : config.get("database"),
                     config.get("username"),
                     config.get("password"),
                     true,
@@ -37,7 +37,6 @@ public class Neo4j {
     }
 
     public DatasourceWrapper<Neo4jControlWrapper> createWrapper(String identifier, SchemaCategory schema, @Nullable String database) {
-        if (database == null) database = "neo4j";
         final var wrapper = new Neo4jControlWrapper(getProvider(database), identifier);
         return new DatasourceWrapper<>(Datasource.DatasourceType.neo4j, identifier, wrapper, schema);
     }
