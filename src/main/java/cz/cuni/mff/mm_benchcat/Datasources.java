@@ -1,6 +1,5 @@
 package cz.cuni.mff.mm_benchcat;
 
-import cz.matfyz.core.identifiers.Signature;
 import cz.matfyz.core.schema.SchemaCategory;
 import cz.matfyz.core.utils.Config;
 import cz.matfyz.wrapperneo4j.Neo4jControlWrapper;
@@ -34,30 +33,30 @@ public class Datasources {
     private static final DatasourceWrapper.DatasourceMapping person = new DatasourceWrapper.DatasourceMapping(
             Schema.person, personKind,
             b -> b.root(
-                    b.simple(Schema.personId.label(), Schema.personHasId),
-                    b.simple(Schema.personFirstName.label(), Schema.personHasFirstName),
-                    b.simple(Schema.personLastName.label(), Schema.personHasLastName),
-                    b.simple(Schema.personGender.label(), Schema.personHasGender),
-                    b.simple(Schema.personBirthday.label(), Schema.personHasBirthday),
-                    b.simple(Schema.personEmail.label(), Schema.personHasEmail),
-                    b.simple(Schema.personLocation.label(), Schema.personHasLocation)
+                    b.simple(Schema.personId.label(), Schema.person_personId),
+                    b.simple(Schema.personFirstName.label(), Schema.person_personFirstName),
+                    b.simple(Schema.personLastName.label(), Schema.person_personLastName),
+                    b.simple(Schema.personGender.label(), Schema.person_personGender),
+                    b.simple(Schema.personBirthday.label(), Schema.person_personBirthday),
+                    b.simple(Schema.personEmail.label(), Schema.person_personEmail),
+                    b.simple(Schema.personLocation.label(), Schema.person_personLocation)
             )
     );
     private static final DatasourceWrapper.DatasourceMapping post = new DatasourceWrapper.DatasourceMapping(
             Schema.post, postKind,
             b -> b.root(
-                    b.simple(Schema.postId.label(), Schema.postHasId),
-                    b.simple(Schema.postCreationDate.label(), Schema.postHasCreationDate),
-                    b.simple(Schema.postLocation.label(), Schema.postHasLocation),
-                    b.simple(Schema.postContent.label(), Schema.postHasContent),
-                    b.simple(Schema.postLength.label(), Schema.postHasLength)
+                    b.simple(Schema.postId.label(), Schema.post_postId),
+                    b.simple(Schema.postCreationDate.label(), Schema.post_postCreationDate),
+                    b.simple(Schema.postLocation.label(), Schema.post_postLocation),
+                    b.simple(Schema.postContent.label(), Schema.post_postContent),
+                    b.simple(Schema.postLength.label(), Schema.post_postLength)
             )
     );
     private static final DatasourceWrapper.DatasourceMapping tag = new DatasourceWrapper.DatasourceMapping(
             Schema.tag, tagKind,
             b -> b.root(
-                    b.simple(Schema.tagId.label(), Schema.tagHasId),
-                    b.simple(Schema.tagName.label(), Schema.tagHasName)
+                    b.simple(Schema.tagId.label(), Schema.tag_tagId),
+                    b.simple(Schema.tagName.label(), Schema.tag_tagName)
             )
     );
     //endregion
@@ -68,30 +67,30 @@ public class Datasources {
     private static final String hasTagKind = "HAS_TAG";
 
     private static final DatasourceWrapper.DatasourceMapping hasCreated = new DatasourceWrapper.DatasourceMapping(
-            Schema.person, hasCreatedKind,
+            Schema.person_hasCreated_post, hasCreatedKind,
             b -> b.root(
-                    b.complex(Neo4jNames.from(personKind), Signature.empty(),
-                            b.simple(Schema.personId.label(), Schema.personHasId)),
-                    b.complex(Neo4jNames.to(postKind), Schema.hasCreated,
-                            b.simple(Schema.postId.label(), Schema.postHasId))
+                    b.complex(Neo4jNames.from(personKind), Schema.hasCreated_person,
+                            b.simple(Schema.personId.label(), Schema.person_personId)),
+                    b.complex(Neo4jNames.to(postKind), Schema.hasCreated_post,
+                            b.simple(Schema.postId.label(), Schema.post_postId))
             )
     );
     private static final DatasourceWrapper.DatasourceMapping hasInterest = new DatasourceWrapper.DatasourceMapping(
-            Schema.person, hasInterestKind,
+            Schema.person_hasInterest_tag, hasInterestKind,
             b -> b.root(
-                    b.complex(Neo4jNames.from(personKind), Signature.empty(),
-                            b.simple(Schema.personId.label(), Schema.personHasId)),
-                    b.complex(Neo4jNames.to(tagKind), Schema.hasInterest,
-                            b.simple(Schema.tagId.label(), Schema.tagHasId))
+                    b.complex(Neo4jNames.from(personKind), Schema.hasInterest_person,
+                            b.simple(Schema.personId.label(), Schema.person_personId)),
+                    b.complex(Neo4jNames.to(tagKind), Schema.hasInterest_tag,
+                            b.simple(Schema.tagId.label(), Schema.tag_tagId))
             )
     );
     private static final DatasourceWrapper.DatasourceMapping hasTag = new DatasourceWrapper.DatasourceMapping(
-            Schema.post, hasTagKind,
+            Schema.post_hasTag_tag, hasTagKind,
             b -> b.root(
-                    b.complex(Neo4jNames.from(postKind), Signature.empty(),
-                            b.simple(Schema.postId.label(), Schema.postHasId)),
-                    b.complex(Neo4jNames.to(tagKind), Schema.hasTag,
-                            b.simple(Schema.tagId.label(), Schema.tagHasId))
+                    b.complex(Neo4jNames.from(postKind), Schema.hasTag_post,
+                            b.simple(Schema.postId.label(), Schema.post_postId)),
+                    b.complex(Neo4jNames.to(tagKind), Schema.hasTag_tag,
+                            b.simple(Schema.tagId.label(), Schema.tag_tagId))
             )
     );
     //endregion
