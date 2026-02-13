@@ -4,13 +4,21 @@ services:
   neo4j:
     container_name: mm-benchcat-neo4j
     image: neo4j:latest
-    volumes:
-      - ./data/neo4j/logs:/logs
-      - ./data/neo4j/config:/config
-      - ./data/neo4j/data:/data
-      - ./data/neo4j/plugins:/plugins
     environment:
       - NEO4J_AUTH=none
     ports:
       - "${NEO4J_HTTP_PORT}:7474"
       - "${NEO4J_BOLT_PORT}:7687"
+    volumes:
+      - ./data/neo4j/logs:/logs:Z
+      - ./data/neo4j/data:/data:Z
+
+  postgresql:
+    container_name: mm-benchcat-postgresql
+    image: postgres:latest
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    ports:
+      - "${POSTGRESQL_PORT}:5432"
+    volumes:
+      - ./data/postgresql:/var/lib/postgresql:Z

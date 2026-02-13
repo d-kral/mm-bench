@@ -1,5 +1,8 @@
 package cz.cuni.mff.mm_benchcat;
 
+import cz.cuni.mff.mm_benchcat.wrappers.DatasourceWrapper;
+import cz.cuni.mff.mm_benchcat.wrappers.Neo4j;
+
 import cz.matfyz.core.schema.SchemaCategory;
 import cz.matfyz.core.utils.Config;
 import cz.matfyz.wrapperneo4j.Neo4jControlWrapper;

@@ -1,4 +1,4 @@
-package cz.cuni.mff.mm_benchcat;
+package cz.cuni.mff.mm_benchcat.wrappers;
 
 import cz.matfyz.core.datasource.Datasource;
 import cz.matfyz.core.schema.SchemaCategory;
