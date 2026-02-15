@@ -1,6 +1,14 @@
 name: mm-benchcat
 
 services:
+  mongodb:
+    container_name: mm-benchcat-mongodb
+    image: mongo:latest
+    ports:
+      - "${MONGODB_PORT}:27017"
+    volumes:
+      - ./data/mongodb:/data:Z
+
   neo4j:
     container_name: mm-benchcat-neo4j
     image: neo4j:latest
